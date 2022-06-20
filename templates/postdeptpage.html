@@ -1,27 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h6 class="mt-4">bsn</h6>
-    <div class="row mt-4">
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Create Contact{% endblock title %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
       <div class="card">
         <div class="card-body">
           <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
-            <button class="btn btn-primary btn-sm mt-2" type="submit">post</button>
+            {{form | crispy}}
+            <button type="submit" class="btn btn-outline-primary">save</button>
         </form>
         </div>
       </div>
 
-  
-       
     </div>
+    <div class="col-md-2"></div>
+  </div>
 </div>
-</body>
-</html>
+
+    
+{% endblock content %}
