@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout 
-from  .forms import SignUpForm, LoginForm, EditProfileForm
+from  .forms import SignUpForm, LoginForm, EditProfileForm,ProfileForm
 from django.urls import reverse
 from .models import User, Profile
 from django.contrib.auth.decorators import login_required
@@ -60,24 +60,20 @@ def profile(request, username):
 
 @login_required
 def edit_profile(request):
+    # form = ProfileForm()
     if request.method == "POST":
-        form = EditProfileForm(request.POST, request.FILES)
+        profile = Profile.objects.get(user=request.user)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        
         if form.is_valid():
             prof = form.save(commit=False)
 
-            user = User.objects.get(id=request.user.id)
-            profile = Profile.objects.get(user=user)
-            user.username = username
-            prof.user=user
-            # profile.about_me = about_me
-            # profile.location = location
-            # profile.neighbourhood = neighbourhood
-            # if image:
-            #     profile.image = image
+            prof.user=request.user
+          
             prof.save()
             return redirect("home")
     else:
-        form = EditProfileForm(request.user.username)
+        form = ProfileForm()
     return render(request, "edit_profile.html", {'form': form})   
 
 @login_required

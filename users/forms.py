@@ -23,13 +23,18 @@ class NeighbourhoodForm(ModelForm):
         fields = ['name', 'location', 'occupants']
 
 
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['about_me', 'image', 'neighbourhood']
+
 
 
 
 class EditProfileForm(forms.Form):
     username = forms.CharField()
     about_me = forms.CharField(widget=forms.Textarea())
-    neighbourhood = forms.CharField()
+    neighbourhood = forms.ModelChoiceField(queryset=Neighbourhood.objects.all())
     image = forms.ImageField(required=False)
 
     def __init__(self, original_username, *args, **kwargs):
