@@ -11,5 +11,13 @@
     <a href="{% url 'profile' request.user.username %}">
     Profile page
  </a>
+ <a href="{% url 'postnews' %}">
+    Post
+ </a>
+
+ {% for post in posts %}
+    {{post.name}}
+    {{post.content}}
+ {% endfor %}
 </body>
 </html>

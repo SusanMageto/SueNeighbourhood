@@ -9,21 +9,22 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # Create your views here.
-def home(request):
-    # projects = Project.objects.all()
-    # proje = Project.objects.all().order_by('-id')[0]
 
-    # context={
-    #     'proje':proje,
-    #     'projects':projects,
-    # }
+@login_required
+def home(request):
+    profile = Profile.objects.get(user=request.user)
+    posts = Post.objects.filter(neighbourhood=profile.neighbourhood_name).order_by('-id')
+
+    context={
+        'posts':posts,
+    }
     return render(request, 'home.html')   
 
 
 def postnews(request):
     if request.user.is_authenticated:
         form = PostForm() 
-        profile = Profile.objects.get(user=user)
+        profile = Profile.objects.get(user=request.user)
         if request.method == "POST":
             form = PostForm(request.POST, request.FILES)
            
