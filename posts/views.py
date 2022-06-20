@@ -20,3 +20,23 @@ def home(request):
     return render(request, 'home.html')   
 
 
+def postnews(request):
+    if request.user.is_authenticated:
+        form = PostForm() 
+        profile = Profile.objects.get(user=user)
+        if request.method == "POST":
+            form = PostForm(request.POST, request.FILES)
+           
+            
+            if form.is_valid():  
+                project = form.save(commit=False)   
+                project.user = request.user
+                project.neighbourhood = profile.neighbourhood_name
+                project.save()
+                messages.success(request,"post was added successfully")
+                return redirect('home')
+    
+        context = {
+            'form':form,
+        }
+        return render(request, 'postprojectpage.html', context)
