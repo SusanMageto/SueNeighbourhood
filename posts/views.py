@@ -41,3 +41,35 @@ def postnews(request):
             'form':form,
         }
         return render(request, 'postprojectpage.html', context)
+
+
+def post_details(request, id):
+    
+    post = get_object_or_404(Post, id = id)
+
+    
+    context = {
+        'post':post,
+    }
+    
+    return render(request, 'details.html', context)        
+
+def postbsn(request):
+    if request.user.is_authenticated:
+        form = BuseinessForm() 
+        profile = Profile.objects.get(user=request.user)
+        if request.method == "POST":
+            form = BuseinessForm(request.POST, request.FILES)
+           
+            
+            if form.is_valid():  
+                bsn = form.save(commit=False)  
+                bsn.neighbourhood = profile.neighbourhood_name
+                bsn.save()
+                messages.success(request,"bsn was added successfully")
+                return redirect('home')
+    
+        context = {
+            'form':form,
+        }
+        return render(request, 'postbsnpage.html', context)    

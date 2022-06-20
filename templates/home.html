@@ -15,11 +15,14 @@
     Post
  </a>
  <a href="{% url 'logout' %}">
-    Post
+    logout
  </a>
 
  {% for post in posts %}
-    {{post.name}}
+    
+    <a href="{% url 'post_details' post.id %}">
+        {{post.name}}
+     </a>
     {{post.content}}
  {% endfor %}
 </body>

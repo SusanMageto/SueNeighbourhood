@@ -5,13 +5,6 @@ User = get_user_model()
 
 # Create your models here.
 
-class Neighbourhood(models.Model):
-    name = models.CharField(max_length=300)
-
-    def __str__(self):
-        return self.name
-
-
 class Buseiness(models.Model):
     name = models.CharField(max_length=300)
     neighbourhood = models.CharField(max_length=300)
