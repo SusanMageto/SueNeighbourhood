@@ -18,7 +18,7 @@ def home(request):
     context={
         'posts':posts,
     }
-    return render(request, 'home.html')   
+    return render(request, 'home.html',context)   
 
 
 def postnews(request):
