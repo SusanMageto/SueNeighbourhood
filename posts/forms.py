@@ -11,7 +11,7 @@ class PostForm(ModelForm):
 class BuseinessForm(ModelForm):
     class Meta:
         model = Buseiness
-        fields = ['name']
+        fields = ['name','email']
 
 class ContactsForm(ModelForm):
 

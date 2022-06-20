@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout 
 from  .forms import SignUpForm, LoginForm, EditProfileForm,ProfileForm
 from django.urls import reverse
-from .models import User, Profile
+from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
@@ -109,8 +109,10 @@ def delete_profile(request, id):
 def admin_dashboard(request):
     if request.user.is_authenticated and request.user.is_staff:
         profiles = Profile.objects.all().order_by('-id')
+        hoods = Neighbourhood.objects.all().order_by('-id')
         context = {
             'profiles':profiles,
+            'hoods':hoods,
         }
 
         return render(request, 'admin.html', context)

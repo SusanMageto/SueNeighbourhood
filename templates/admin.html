@@ -57,7 +57,15 @@
            
          {% endfor %}
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-2">
+              {% for hood in hoods %}
+              <div class="card">
+                <div class="card-body">
+                  <a href="{% url 'find_neigbourhood' hood.id%}">{{hood.name}}</a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
         </div>
     </div>
 

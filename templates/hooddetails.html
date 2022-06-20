@@ -18,6 +18,11 @@
                     <p class="card-text">
                         location: {{hood.location}}
                     </p>
+                    {% if request.user.is_staff %}
+                    
+                    <a class="btn btn-outline-primary me-1 flex-grow-1" href="{% url 'edit_neigbourhood' hood.id %}">Edit</a>
+                    <a type="button"  href="{% url 'delete_neigbourhood' hood.id %}" class="btn btn-primary flex-grow-1">Delete</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

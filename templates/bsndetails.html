@@ -14,8 +14,8 @@
                     <p class="card-text">
                         {{bsn.email}}
                     </p>
-                    {% if post.user == request.user %}
-                    <a class="btn btn-outline-primary me-1 flex-grow-1" href="{% url 'edit_profile' bsn.id %}">Edit</a>
+                    {% if bsn.user == request.user %}
+                    <a class="btn btn-outline-primary me-1 flex-grow-1" href="{% url 'edit_business' bsn.id %}">Edit</a>
                     <a type="button"  href="{% url 'delete_business' bsn.id %}" class="btn btn-primary flex-grow-1">Delete</a>
                     {% endif %}
                 </div>
