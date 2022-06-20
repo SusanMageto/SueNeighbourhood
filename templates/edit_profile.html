@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% block content %}
 <div class="container">
   <div class="row">
@@ -22,26 +23,6 @@
           <div class="invalid-feedback">{{ form.about_me.errors }}</div>
           {% endif %}
         </div>
-
-
-        <div class="form-group">
-            {{ form.location.label_tag }}
-            <textarea type="text" class="form-control {% if form.location.errors %}is-invalid{% endif %}" id="id_location"
-              name="location" value='{{ form.location.value }}' rows="5"></textarea>
-            {% if form.location.errors %}
-            <div class="invalid-feedback">{{ form.location.errors }}</div>
-            {% endif %}
-          </div>
-
-
-          <div class="form-group">
-            {{ form.neighbourhood_name.label_tag }}
-            <textarea type="text" class="form-control {% if form.neighbourhood_name.errors %}is-invalid{% endif %}" id="id_neighbourhood_name"
-              name="neighbourhood_name" value='{{ form.neighbourhood_name.value }}' rows="1"></textarea>
-            {% if form.neighbourhood_name.errors %}
-            <div class="invalid-feedback">{{ form.neighbourhood_name.errors }}</div>
-            {% endif %}
-          </div>
 
         <div class="form-group">
           {{ form.image.label_tag }}<br>
