@@ -17,7 +17,7 @@ def signup(request):
             login(request, user)
 
             messages.success(request, "Congratulations, you are now a registered user!")
-            return redirect('home')
+            return redirect('edit_profile')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
