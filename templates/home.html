@@ -8,5 +8,8 @@
 </head>
 <body>
     Home
+    <a href="{% url 'profile' request.user.username %}">
+    Profile page
+ </a>
 </body>
 </html>
