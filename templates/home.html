@@ -1,19 +1,56 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock title %}
 {% block content %}
+<div class="container">
+   <div class="row">
+      <div class="col-md-4">
+         <h6 class="mt-2 mb-2">Emergebcy Contacts</h6>
+         {% for contact in contacts %}
+         <div class="card mt-2 mt-2">
+            <div class="card-body">
+               <p class="card-text">
+                  {{contact.contacts}}
+                  
+               </p>
+               <p class="card-text">
+                  {{contact.department}}
+                  
+               </p>
+            </div>
+         </div>
 
- {% for post in posts %}
-    
-    <a href="{% url 'post_details' post.id %}">
-        {{post.name}}
-     </a>
-    {{post.content}}
- {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="col-md-4">
+         <h6 class="mt-2 mb-2">Posts</h6>
+         {% for post in posts %}
+         <div class="card mt-2 mb-2">
+            <div class="card-body">
+               <a class="card-text" href="{% url 'post_details' post.id %}">
+                  {{post.name}}
+               </a>
+               <p class="card-text">By: {{post.user.username}}</p>
 
- {% for bsn in businesses %}
-    
- <a href="">
-     {{bsn.name}}
-  </a>
-{% endfor %}
+            </div>
+         </div>
+
+      {% endfor %}
+      </div>
+      <div class="col-md-4">
+         <h6 class="mt-2 mb-2">Businesses</h6>
+         {% for bsn in businesses %}
+         <div class="card mt-2 mt-2">
+            <div class="card-body">
+               <a class="card-text" href="{% url 'find_business' bsn.id %}">
+                  {{bsn.name}}
+               </a>
+               <p class="card-text">{{bsn.email}}</p>
+            </div>
+         </div>
+
+        {% endfor %}
+      </div>
+   </div>
+</div>
+
 {% endblock content %}

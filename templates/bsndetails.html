@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {{bsn.name}}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Detaile{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 mt-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-text">
+                        {{bsn.name}}
+                    </h6>
+                    <p class="card-text">
+                        {{bsn.email}}
+                    </p>
+                    {% if post.user == request.user %}
+                    <a class="btn btn-outline-primary me-1 flex-grow-1" href="{% url 'edit_profile' bsn.id %}">Edit</a>
+                    <a type="button"  href="{% url 'delete_business' bsn.id %}" class="btn btn-primary flex-grow-1">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+
+{% endblock content %}    
