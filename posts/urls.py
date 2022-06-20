@@ -17,6 +17,6 @@ urlpatterns = [
     path('hood/<int:id>/', find_neigbourhood, name='find_neigbourhood'),
     path('delete/hood/<int:id>/', delete_neigbourhood, name='delete_neigbourhood'),
     path('update/hood/<int:id>/', edit_neigbourhood, name='edit_neigbourhood'),
-    path('search/', search, name='search'),
+    path('search/', SearchResultsView.as_view(), name='search'),
     
 ]

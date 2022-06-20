@@ -6,7 +6,10 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.db.models import Q 
+from django.views.generic import ListView
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 
 # Create your views here.
@@ -102,6 +105,26 @@ def postdept(request):
         }
         return render(request, 'postdeptpage.html', context)   
 
+
+
+
+        # submitbutton= request.GET.get('submit')
+
+        # if query is not None:
+        #     lookups= Q(title__icontains=query) | Q(content__icontains=query)
+
+        #     results= Post.objects.filter(lookups).distinct()
+class SearchResultsView(ListView):
+    model = Buseiness
+    template_name = "search.html"
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get("q")
+        profile = Profile.objects.get(user=self.request.user)
+        object_list = Buseiness.objects.filter(
+            Q(name__icontains=query)
+        )
+        return object_list
 
 def search(request):
     if request.user.is_authenticated:

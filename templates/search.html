@@ -1,28 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="container">
 <div class="row">
-    {% if data %}
+    {% if object_list %}
     <h4 class="text-muted mt-4 mb-4">Search results for <span>{{request.GET.q}}</span></h4>
     <hr>
-    <div class="row">
         <!-- product -->
+        <div class="col-md-2"></div>
         
-        {% for bsn in data  %}
-        <div class="col-md-3 col-xs-6">
-            <div class="product">
-                <div class="product-body">
-                    <p class="product-category">{{bsn.neighbourhood.name}}</p>
-                    <h3 class="product-name"><a href="{% url 'details' product.id %}">{{bsn.name}}</a></h3>
-                    <div class="product-rating">
-                    </div>
-                    <div class="product-btns">
-                        
-                        <button class="quick-view"><a href="{% %}">
-                            <i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
-                    </div>
+        
+        <div class="col-md-8">
+          {% for bsn in object_list  %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{bsn.neighbourhood.name}}</p>
+                    <h3 class="card-text"><a href="{% url 'find_business' bsn.id %}">{{bsn.name}}</a></h3>
+                    <h3 class="card-text">{{bsn.email}}</h3>
+  
                 </div>
             </div>
+            {% endfor %}
         </div>
         
-        {% endfor %}
+       
+        <div class="col-md-2"></div>
         <!-- /product -->
         
 
@@ -36,4 +38,6 @@
   {% endif %}  
 
 
+
 </div>
+{% endblock content %}

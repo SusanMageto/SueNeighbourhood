@@ -31,9 +31,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'postdept' %}">Create Contact</a>
               </li>
-              <form class="form-inline my-2 my-lg-0"  action="/search">
+              <!-- <form class="form-inline my-2 my-lg-0"  action="/search">
                 <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search business" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form> -->
+              <form action="{% url 'search' %}" method="get">
+                <input name="q" type="text" placeholder="Search...">
               </form>
               {% else %}
               <li class="nav-item">
