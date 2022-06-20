@@ -16,7 +16,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        {% if request.user.is_authenticated and not request.user.is_staff %}
+      {% if request.user.is_authenticated %}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
@@ -31,10 +31,10 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'postdept' %}">Create Contact</a>
               </li>
-              {% elif request.user.is_authenticated and request.user.is_staff %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin</a>
-              </li>
+              <form class="form-inline my-2 my-lg-0"  action="/search">
+                <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search business" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
               {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -43,12 +43,14 @@
                 <a class="nav-link" href="{% url 'signup' %}">Register</a>
               </li>
               {% endif %}
+              {% if request.user.is_authenticated  and request.user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin</a>
+              </li>
+              {% endif %}
 
           </ul>
-          <form class="form-inline my-2 my-lg-0"  action="/search">
-            <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search business" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+
         </div>
       </nav>
     {% if messages %}
