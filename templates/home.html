@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    Home
-    <a href="{% url 'profile' request.user.username %}">
-    Profile page
- </a>
- <a href="{% url 'postnews' %}">
-    Post
- </a>
- <a href="{% url 'logout' %}">
-    logout
- </a>
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
 
  {% for post in posts %}
     
@@ -25,5 +9,11 @@
      </a>
     {{post.content}}
  {% endfor %}
-</body>
-</html>
+
+ {% for bsn in businesses %}
+    
+ <a href="">
+     {{bsn.name}}
+  </a>
+{% endfor %}
+{% endblock content %}

@@ -17,7 +17,7 @@ def signup(request):
             login(request, user)
 
             messages.success(request, "Congratulations, you are now a registered user!")
-            return redirect('edit_profile')
+            return redirect('home')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
@@ -53,7 +53,7 @@ def log_out(request):
 
 @login_required
 def profile(request, username):
-    user = get_object_or_404(User, username=username)
+    user = request.user
     profile = get_object_or_404(Profile, user=user)
     return render(request, 'profile.html', {'profile': profile, 'user': user}) 
 
@@ -61,25 +61,60 @@ def profile(request, username):
 @login_required
 def edit_profile(request):
     if request.method == "POST":
-        form = EditProfileForm(request.user.username,request.POST, request.FILES)
+        form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            about_me = form.cleaned_data["about_me"]
-            username = form.cleaned_data["username"]
-            location = form.cleaned_data["location"]
-            neighbourhood_name = form.cleaned_data["neighbourhood_name"]
-            image = form.cleaned_data["image"]
+            prof = form.save(commit=False)
 
             user = User.objects.get(id=request.user.id)
             profile = Profile.objects.get(user=user)
             user.username = username
-            user.save()
-            profile.about_me = about_me
-            profile.location = location
-            profile.neighbourhood_name = neighbourhood_name
-            if image:
-                profile.image = image
-            profile.save()
-            return redirect("profile", username=user.username)
+            prof.user=user
+            # profile.about_me = about_me
+            # profile.location = location
+            # profile.neighbourhood = neighbourhood
+            # if image:
+            #     profile.image = image
+            prof.save()
+            return redirect("home")
     else:
         form = EditProfileForm(request.user.username)
-    return render(request, "edit_profile.html", {'form': form})       
+    return render(request, "edit_profile.html", {'form': form})   
+
+@login_required
+def delete_profile(request, id):
+    profile = get_object_or_404(Profile, id = id)
+    profile.delete()
+    messages.success(request,"profile was deleted successfully")
+    return redirect('home')       
+# @login_required
+# def edit_profile(request):
+#     if request.method == "POST":
+#         form = EditProfileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             about_me = form.cleaned_data["about_me"]
+#             username = form.cleaned_data["username"]
+#             image = form.cleaned_data["image"]
+
+#             user = User.objects.get(id=request.user.id)
+#             profile = Profile.objects.get(user=user)
+#             user.username = username
+#             user.save()
+#             profile.about_me = about_me
+#             profile.location = location
+#             profile.neighbourhood = neighbourhood
+#             if image:
+#                 profile.image = image
+#             profile.save()
+#             return redirect("profile", username=user.username)
+#     else:
+#         form = EditProfileForm(request.user.username)
+#     return render(request, "edit_profile.html", {'form': form})       
+
+def admin_dashboard(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        profiles = Profile.objects.all().order_by('-id')
+        context = {
+            'profiles':profiles,
+        }
+
+        return render(request, 'admin.html', context)

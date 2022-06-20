@@ -1,0 +1,39 @@
+<div class="row">
+    {% if data %}
+    <h4 class="text-muted mt-4 mb-4">Search results for <span>{{request.GET.q}}</span></h4>
+    <hr>
+    <div class="row">
+        <!-- product -->
+        
+        {% for bsn in data  %}
+        <div class="col-md-3 col-xs-6">
+            <div class="product">
+                <div class="product-body">
+                    <p class="product-category">{{bsn.neighbourhood.name}}</p>
+                    <h3 class="product-name"><a href="{% url 'details' product.id %}">{{bsn.name}}</a></h3>
+                    <div class="product-rating">
+                    </div>
+                    <div class="product-btns">
+                        
+                        <button class="quick-view"><a href="{% %}">
+                            <i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+        <!-- /product -->
+        
+
+
+    </div>
+    <!-- /store products -->
+  {% else %}
+    <div class="container-fluid mt-5 pt-4">
+      <h4 class="text-muted mt-4 mb-4">{{request.GET.q}} not found</span></h4>
+    </div> 
+  {% endif %}  
+
+
+</div>

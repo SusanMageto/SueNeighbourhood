@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 
-from.models import User
+from.models import *
 
 
 class SignUpForm(UserCreationForm):
@@ -16,12 +17,19 @@ class LoginForm(forms.Form):
     password = forms.CharField()  
 
 
+class NeighbourhoodForm(ModelForm):
+    class Meta:
+        model = Neighbourhood
+        fields = ['name', 'location', 'occupants']
+
+
+
+
 
 class EditProfileForm(forms.Form):
     username = forms.CharField()
     about_me = forms.CharField(widget=forms.Textarea())
-    location = forms.CharField()
-    neighbourhood_name = forms.CharField()
+    neighbourhood = forms.CharField()
     image = forms.ImageField(required=False)
 
     def __init__(self, original_username, *args, **kwargs):
